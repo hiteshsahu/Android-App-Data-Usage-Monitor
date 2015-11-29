@@ -2,6 +2,10 @@ package com.serveroverload.app_datausage_monitor.model;
 
 import java.util.List;
 
+import com.serveroverload.app_datausage_monitor.R;
+import com.serveroverload.app_datausage_monitor.R.id;
+import com.serveroverload.app_datausage_monitor.R.layout;
+
 import android.annotation.SuppressLint;
 import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.Context;
@@ -13,16 +17,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.serveroverload.app_datausage_monitor.R;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class ProductListArrayAdapter.
  */
-public class ProcessesListArrayAdapter extends
-		ArrayAdapter<RunningAppProcessInfo>
+public class ComplexProcessesListArrayAdapter extends
+		ArrayAdapter<PackageInfoModel>
 
 {
 
@@ -36,8 +39,8 @@ public class ProcessesListArrayAdapter extends
 	 * @param mScanResults
 	 *            the list of recordings
 	 */
-	public ProcessesListArrayAdapter(Context context, int resource,
-			List<RunningAppProcessInfo> mScanResults) {
+	public ComplexProcessesListArrayAdapter(Context context, int resource,
+			List<PackageInfoModel> mScanResults) {
 		super(context, resource, mScanResults);
 		this.context = context;
 		this.listOfProducts = mScanResults;
@@ -47,15 +50,16 @@ public class ProcessesListArrayAdapter extends
 	private final Context context;
 
 	/** The list of recordings. */
-	private final List<RunningAppProcessInfo> listOfProducts;
+	private final List<PackageInfoModel> listOfProducts;
 
 	/**
 	 * The Class ViewHolder.
 	 */
 	private class ViewHolder {
 
-		/** The quanitity. */
-		TextView processName, UID, sent, recieved;
+		ImageView appIcon;
+		TextView appPackage, UID, sent, recieved, appName, permission,
+				versionCode, feature;
 	}
 
 	/*
@@ -77,13 +81,16 @@ public class ProcessesListArrayAdapter extends
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-			convertView = inflater.inflate(R.layout.process_list_item, parent,
-					false);
+			convertView = inflater.inflate(R.layout.complex_process_list_item,
+					parent, false);
 
 			holder = new ViewHolder();
 
-			holder.processName = (TextView) convertView
+			holder.appPackage = (TextView) convertView
 					.findViewById(R.id.app_package_name);
+
+			holder.appIcon = (ImageView) convertView
+					.findViewById(R.id.app_icon);
 
 			holder.UID = (TextView) convertView.findViewById(R.id.UID);
 
@@ -92,23 +99,57 @@ public class ProcessesListArrayAdapter extends
 			holder.recieved = (TextView) convertView
 					.findViewById(R.id.recieved);
 
+			holder.versionCode = (TextView) convertView
+					.findViewById(R.id.app_version);
+
+			holder.appName = (TextView) convertView.findViewById(R.id.app_name);
+
+			holder.feature = (TextView) convertView
+					.findViewById(R.id.app_features);
+
+			holder.permission = (TextView) convertView
+					.findViewById(R.id.app_permission);
+
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.processName
-				.setText(listOfProducts.get(productIndex).processName);
+		holder.appPackage.setText("Package : "
+				+ listOfProducts.get(productIndex).getPackageName());
 
-		holder.UID.setText("UID : " + listOfProducts.get(productIndex).uid);
+		holder.versionCode.setText("Version : "
+				+ listOfProducts.get(productIndex).getVersioName() + "_"
+				+ listOfProducts.get(productIndex).getVersionCode());
+
+		holder.UID
+				.setText("UID : " + listOfProducts.get(productIndex).getUID());
+
+		holder.appName.setText("App Name : "
+				+ listOfProducts.get(productIndex).getAppName());
+
+		if (null != listOfProducts.get(productIndex).getPackagePermission())
+			holder.permission.setText("Permission : "
+					+ listOfProducts.get(productIndex).getPackagePermission()
+							.toString());
+
+		if (null != listOfProducts.get(productIndex).getPackageFeature())
+			holder.permission.setText("Features : "
+					+ listOfProducts.get(productIndex).getPackageFeature()
+							.toString());
+
+		holder.appIcon.setImageDrawable(listOfProducts.get(productIndex)
+				.getIcon());
 
 		holder.sent.setText("Sent : "
-				+ bytesHoomanRedable(TrafficStats.getUidTxBytes(listOfProducts
-						.get(productIndex).uid), true));
+				+ bytesHoomanRedable(
+						TrafficStats.getUidTxBytes(listOfProducts.get(
+								productIndex).getUID()), true));
 
 		holder.recieved.setText("Recieve : "
-				+ bytesHoomanRedable(TrafficStats.getUidRxBytes(listOfProducts
-						.get(productIndex).uid), true));
+				+ bytesHoomanRedable(
+						TrafficStats.getUidRxBytes(listOfProducts.get(
+								productIndex).getUID()), true));
 
 		holder.sent.setSelected(true);
 
@@ -118,10 +159,13 @@ public class ProcessesListArrayAdapter extends
 
 			@Override
 			public void onClick(View v) {
-
-				Intent intent = new Intent(Intent.ACTION_DELETE);
-				intent.setData(Uri.parse(listOfProducts.get(productIndex).processName));
-				context.startActivity(intent);
+//
+//				Intent intent = new Intent(Intent.ACTION_DELETE, Uri
+//						.parse("package:"
+//								+ listOfProducts.get(productIndex)
+//										.getPackageName()));
+//				// intent.setData(Uri.parse(listOfProducts.get(productIndex).getPackageName()));
+//				context.startActivity(intent);
 
 			}
 		});

@@ -22,7 +22,8 @@ public class ProcessesMonitor {
 	/**
 	 * Instantiates a new processes.
 	 *
-	 * @param context the context
+	 * @param context
+	 *            the context
 	 */
 	public ProcessesMonitor(Context context) {
 		super();
@@ -35,7 +36,8 @@ public class ProcessesMonitor {
 	/**
 	 * Gets the running applications.
 	 *
-	 * @param showUserApps the show user apps
+	 * @param showUserApps
+	 *            the show user apps
 	 * @return the running applications
 	 */
 	public List<RunningAppProcessInfo> getRunningApplications(
@@ -91,13 +93,38 @@ public class ProcessesMonitor {
 
 			return runningProcesses;
 		}
+	}
 
+	public ArrayList<PackageInfoModel> showMoreDetail(boolean showUserApp) {
+
+		List<RunningAppProcessInfo> userProcess = getRunningApplications(showUserApp);
+
+		ArrayList<PackageInfoModel> tempList = new ArrayList<PackageInfoModel>();
+
+		ArrayList<PackageInfoModel> installedApps = getInstalledApps(true);
+
+		for (int i = 0; i < installedApps.size(); i++) {
+
+			for (int j = 0; j < userProcess.size(); j++) {
+				if (userProcess.get(j).processName
+						.equalsIgnoreCase(installedApps.get(i).getPackageName())) {
+
+					installedApps.get(i).setUID(userProcess.get(j).uid);
+
+					tempList.add(installedApps.get(i));
+
+				}
+			}
+		}
+
+		return tempList;
 	}
 
 	/**
 	 * Gets the installed apps.
 	 *
-	 * @param getSysPackages the get sys packages
+	 * @param getSysPackages
+	 *            the get sys packages
 	 * @return the installed apps
 	 */
 	private ArrayList<PackageInfoModel> getInstalledApps(boolean getSysPackages) {
@@ -108,6 +135,7 @@ public class ProcessesMonitor {
 
 		for (int i = 0; i < installedPackages.size(); i++) {
 			PackageInfo packageInfo = installedPackages.get(i);
+
 			if ((!getSysPackages) && (packageInfo.versionName == null)) {
 				continue;
 			}
@@ -115,7 +143,7 @@ public class ProcessesMonitor {
 			FeatureInfo[] packageFeature = packageInfo.reqFeatures;
 			PermissionInfo[] packagePermission = packageInfo.permissions;
 
-			PackageInfoModel newInfo = new PackageInfoModel(
+			PackageInfoModel newInfo = new PackageInfoModel(0,
 					packageInfo.applicationInfo.loadLabel(
 							context.getPackageManager()).toString(),
 					packageInfo.packageName, packageInfo.versionName,

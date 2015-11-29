@@ -10,26 +10,44 @@ import android.graphics.drawable.Drawable;
  */
 public class PackageInfoModel {
 
+	int UID;
+
+	public int getUID() {
+		return UID;
+	}
+
+	public void setUID(int uID) {
+		UID = uID;
+	}
+
 	/**
 	 * Instantiates a new package info model.
 	 *
-	 * @param appName the app name
-	 * @param packageName the package name
-	 * @param versioName the versio name
-	 * @param versionCode the version code
-	 * @param icon the icon
-	 * @param packageFeature the package feature
-	 * @param packagePermission the package permission
+	 * @param appName
+	 *            the app name
+	 * @param packageName
+	 *            the package name
+	 * @param versioName
+	 *            the versio name
+	 * @param versionCode
+	 *            the version code
+	 * @param icon
+	 *            the icon
+	 * @param packageFeature
+	 *            the package feature
+	 * @param packagePermission
+	 *            the package permission
 	 */
-	public PackageInfoModel(String appName, String packageName, String versioName,
-			String versionCode, Drawable icon, FeatureInfo[] packageFeature,
-			PermissionInfo[] packagePermission) {
+	public PackageInfoModel(int UID, String appName, String packageName,
+			String versioName, String versionCode, Drawable icon,
+			FeatureInfo[] packageFeature, PermissionInfo[] packagePermission) {
 		super();
+		this.UID = UID;
 		this.appName = appName;
 		this.packageName = packageName;
 		this.versioName = versioName;
 		this.versionCode = versionCode;
-		Icon = icon;
+		this.Icon = icon;
 		this.packageFeature = packageFeature;
 		this.packagePermission = packagePermission;
 	}
@@ -46,7 +64,8 @@ public class PackageInfoModel {
 	/**
 	 * Sets the package feature.
 	 *
-	 * @param packageFeature the new package feature
+	 * @param packageFeature
+	 *            the new package feature
 	 */
 	public void setPackageFeature(FeatureInfo[] packageFeature) {
 		this.packageFeature = packageFeature;
@@ -64,7 +83,8 @@ public class PackageInfoModel {
 	/**
 	 * Sets the package permission.
 	 *
-	 * @param packagePermission the new package permission
+	 * @param packagePermission
+	 *            the new package permission
 	 */
 	public void setPackagePermission(PermissionInfo[] packagePermission) {
 		this.packagePermission = packagePermission;
@@ -75,7 +95,7 @@ public class PackageInfoModel {
 
 	/** The package feature. */
 	FeatureInfo[] packageFeature;
-	
+
 	/** The package permission. */
 	PermissionInfo[] packagePermission;
 
@@ -91,7 +111,8 @@ public class PackageInfoModel {
 	/**
 	 * Sets the app name.
 	 *
-	 * @param appName the new app name
+	 * @param appName
+	 *            the new app name
 	 */
 	public void setAppName(String appName) {
 		this.appName = appName;
@@ -109,7 +130,8 @@ public class PackageInfoModel {
 	/**
 	 * Sets the package name.
 	 *
-	 * @param packageName the new package name
+	 * @param packageName
+	 *            the new package name
 	 */
 	public void setPackageName(String packageName) {
 		this.packageName = packageName;
@@ -127,7 +149,8 @@ public class PackageInfoModel {
 	/**
 	 * Sets the versio name.
 	 *
-	 * @param versioName the new versio name
+	 * @param versioName
+	 *            the new versio name
 	 */
 	public void setVersioName(String versioName) {
 		this.versioName = versioName;
@@ -145,7 +168,8 @@ public class PackageInfoModel {
 	/**
 	 * Sets the version code.
 	 *
-	 * @param versionCode the new version code
+	 * @param versionCode
+	 *            the new version code
 	 */
 	public void setVersionCode(String versionCode) {
 		this.versionCode = versionCode;
@@ -166,7 +190,8 @@ public class PackageInfoModel {
 	/**
 	 * Sets the appname.
 	 *
-	 * @param string the new appname
+	 * @param string
+	 *            the new appname
 	 */
 	public void setAppname(String string) {
 		// TODO Auto-generated method stub
@@ -176,7 +201,8 @@ public class PackageInfoModel {
 	/**
 	 * Sets the pname.
 	 *
-	 * @param packageName the new pname
+	 * @param packageName
+	 *            the new pname
 	 */
 	public void setPname(String packageName) {
 		// TODO Auto-generated method stub
@@ -186,7 +212,8 @@ public class PackageInfoModel {
 	/**
 	 * Sets the version name.
 	 *
-	 * @param versionName the new version name
+	 * @param versionName
+	 *            the new version name
 	 */
 	public void setVersionName(String versionName) {
 		// TODO Auto-generated method stub
@@ -196,7 +223,8 @@ public class PackageInfoModel {
 	/**
 	 * Sets the version code.
 	 *
-	 * @param versionCode the new version code
+	 * @param versionCode
+	 *            the new version code
 	 */
 	public void setVersionCode(int versionCode) {
 		// TODO Auto-generated method stub
@@ -206,7 +234,8 @@ public class PackageInfoModel {
 	/**
 	 * Sets the icon.
 	 *
-	 * @param loadIcon the new icon
+	 * @param loadIcon
+	 *            the new icon
 	 */
 	public void setIcon(Drawable loadIcon) {
 		// TODO Auto-generated method stub
