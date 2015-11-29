@@ -1,21 +1,11 @@
 package com.serveroverload.app_datausage_monitor.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.serveroverload.app_datausage_monitor.R;
-import com.serveroverload.app_datausage_monitor.R.id;
-import com.serveroverload.app_datausage_monitor.R.layout;
-
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningAppProcessInfo;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.Toast;
+
+import com.serveroverload.app_datausage_monitor.R;
 
 // TODO: Auto-generated Javadoc
 /**
